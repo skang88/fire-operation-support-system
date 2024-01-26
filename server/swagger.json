@@ -1,0 +1,108 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Fire Operation Support - OpenAPI 3.0",
+    "description": "This is a fire operation support server based on the OpenAPI 3.0 specification.",
+    "contact": {
+      "email": "skang88@asu.edu"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Stations", 
+      "description": "Station Router", 
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "paths": {
+    "/stations": {
+      "get": {
+        "tags": ["Stations"],
+        "summary": "Get all station list", 
+        "description": "Get all stations from the database", 
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Stations": {
+        "type": "object", 
+        "properties": {
+          "stationId": {
+            "type": "integer", 
+            "format": "int64", 
+            "example": 1
+          }, 
+          "stationName": {
+            "type": "string", 
+            "example": "Chandler Fire Department Station No.1"
+          }, 
+          "address": {
+           "type": "string", 
+           "example": "1491 E Pecos Rd, Chandler, AZ 85225"
+          },
+          "latitude": {
+            "type": "number", 
+            "format": "double", 
+            "example": 33.29095993606609
+          },
+          "longitude": {
+            "type": "number", 
+            "format": "double", 
+            "example": -111.81659271582987
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      }
+    }
+  }
+}
