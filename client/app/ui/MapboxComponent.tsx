@@ -31,6 +31,8 @@ const Mapbox4 = () => {
     }
   }
 
+  const api_key = process.env.MAPBOX_TOKEN
+
   return (
     <Map
       id='map'
@@ -41,7 +43,7 @@ const Mapbox4 = () => {
       }}
       style={{ width: '100%', height: '100vh' }}
       mapStyle={'mapbox://styles/mapbox/streets-v12'}
-      mapboxAccessToken={"pk.eyJ1IjoibGVhZGdvb24iLCJhIjoiY2thdzk4N29mMHhubDJycGc1MHp1cG02NiJ9.8OvvJs1dtC4wgwvUNSeNYw"}
+      mapboxAccessToken={api_key}
       onLoad={onLoad}
     >
       <GeolocateControl

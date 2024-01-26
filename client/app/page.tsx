@@ -19,8 +19,6 @@ export default function Home() {
     )
   }, [])
   
-  console.log("hellp env", process.env.MAPBOX_TOKEN);
-
   return (
     <div>
       <div> {message} </div>
