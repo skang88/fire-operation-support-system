@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Fire Operation Support - OpenAPI 3.0",
-    "description": "This is a fire operation support server based on the OpenAPI 3.0 specification.",
+    "title": "Fire Operation Support System - OpenAPI 3.0",
+    "description": "This is a insident support system for commander and this server is based on the OpenAPI 3.0 specification.",
     "contact": {
       "email": "skang88@asu.edu"
     },
@@ -20,7 +20,7 @@
   "tags": [
     {
       "name": "Stations", 
-      "description": "Station Router", 
+      "description": "Everything about Stations", 
       "externalDocs": {
         "description": "Find out more",
         "url": "http://swagger.io"
@@ -33,6 +33,7 @@
         "tags": ["Stations"],
         "summary": "Get all station list", 
         "description": "Get all stations from the database", 
+        "operationId": "getAllStations",
         "responses": {
           "200": {
             "description": "Successful operation",
@@ -54,6 +55,203 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }, 
+      "post": {
+        "tags": ["Stations"], 
+        "summary": "Add a new station to the DB", 
+        "description": "Add a new station to the DB", 
+        "operationId": "addStation", 
+        "requestBody": {
+          "description": "Create a new station in the DB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Stations"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Stations"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Stations"
+              }
+            }
+          }, 
+          "required": true
+        }, 
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation exception"
+          }
+        }
+
+      }
+    }, 
+    "/stations/{stationId}": {
+      "get": {
+        "tags": ["Stations"], 
+        "summary": "Get a station by ID", 
+        "description": "Get a station by ID", 
+        "operationId": "getStationById", 
+        "parameters": [
+          {
+            "name": "stationId",
+            "in": "path",
+            "description": "ID of station to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ], 
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Station not found"
+          }
+        }
+      }, 
+      "put": {
+        "tags": ["Stations"],
+        "summary": "Update a station information by ID", 
+        "description": "Update a station information by ID", 
+        "operationId": "updateStationById", 
+        "parameters": [
+          {
+            "name": "stationId",
+            "in": "path",
+            "description": "ID of station to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ], 
+        "requestBody": {
+          "description": "Update station information in the DB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Stations"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Stations"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Stations"
+              }
+            }
+          }, 
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Station not found"
+          }
+        }
+      }, 
+      "delete": {
+        "tags": ["Stations"],
+        "summary": "Delete a station information by ID", 
+        "description": "Delete a station information by ID", 
+        "operationId": "deleteStationById", 
+        "parameters": [
+          {
+            "name": "stationId",
+            "in": "path",
+            "description": "ID of station to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ], 
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Stations"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Station not found"
           }
         }
       }

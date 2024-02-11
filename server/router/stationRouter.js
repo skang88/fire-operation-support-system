@@ -4,5 +4,9 @@ const stationController = require('../controller/stationController');
 
 router 
     .get('/stations', stationController.getStations)
+    .post('/stations', stationController.addStation)
+    .get('/stations/:id', stationController.getStationById)
+    .put('/stations/:id', stationController.updateStationyId)
+    .delete('/stations/:id', stationController.deleteBookById)
 
 module.exports = router;
