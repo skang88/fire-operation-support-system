@@ -24,4 +24,8 @@ app.use(cors());
 const stationRouter = require('./router/stationRouter');
 app.use("/api/v1", stationRouter);
 
+const fleetRouter = require('./router/fleetRouter');
+app.use("/api/v1", fleetRouter);
+
+
 module.exports = app;

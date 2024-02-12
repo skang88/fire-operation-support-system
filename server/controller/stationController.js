@@ -53,7 +53,7 @@ exports.updateStationyId = async (req, res) => {
             new: true,
         });
         if (!station) {
-            return res.status(400).render("error", { message: "Station not found" });
+            return res.status(400).json({ message: "Station not found" });
         } else {
             const updatedStation = await Station.findOne({ _id:req.params.id });
             res.status(200).json({ updatedStation, message: "The station information was successfully updated."}); // Redirect to book detail page  
@@ -64,7 +64,7 @@ exports.updateStationyId = async (req, res) => {
   };
 
 // DELETE a station by ID
-exports.deleteBookById = async (req, res) => {
+exports.deleteStationById = async (req, res) => {
     try {
         const station = await Station.findByIdAndDelete({ _id:req.params.id });
         if (!station) {

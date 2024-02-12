@@ -7,6 +7,6 @@ router
     .post('/stations', stationController.addStation)
     .get('/stations/:id', stationController.getStationById)
     .put('/stations/:id', stationController.updateStationyId)
-    .delete('/stations/:id', stationController.deleteBookById)
+    .delete('/stations/:id', stationController.deleteStationById)
 
 module.exports = router;

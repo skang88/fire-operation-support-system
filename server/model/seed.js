@@ -2,157 +2,158 @@ require('dotenv').config({ path: '../.env' })
 
 const mongoose = require('mongoose');
 const Station = require('./Station');
+const Fleet = require('./Fleet');
 
 const stations = [
     {
-        "stationId": 1,
+        "stationId": 101,
         "stationName": "Chandler Fire Station No.1",
         "address": "1491 E Pecos Rd, Chandler, AZ 85225",
         "latitude": 33.29095993606609,
         "longitude": -111.81659271582987
     },
     {
-        "stationId": 2,
+        "stationId": 102,
         "stationName": "Chandler Fire Station No.2",
         "address": "1911 N Alma School Rd, Chandler, AZ 85225",
         "latitude": 33.33285623972869,
         "longitude": -111.85835631290857
     },
     {
-        "stationId": 3,
+        "stationId": 103,
         "stationName": "Chandler Fire Station No.3",
         "address": "275 S Ellis Rd, Chandler, AZ 85224",
         "latitude": 33.29937146804495,
         "longitude": -111.88492249544954
     },
     {
-        "stationId": 4,
+        "stationId": 104,
         "stationName": "Chandler Fire Station No.4",
         "address": "295 N Kyrene Rd, Chandler, AZ 85226",
         "latitude": 33.30716702817265,
         "longitude": -111.94504188401982
     },
     {
-        "stationId": 5,
+        "stationId": 105,
         "stationName": "Chandler Fire Station No.5",
         "address": "1775 W Queen Creek Rd, Chandler, AZ 85248",
         "latitude": 33.26125493686143,
         "longitude": -111.87145296289836
     },
     {
-        "stationId": 6,
+        "stationId": 106,
         "stationName": "Chandler Fire Station No.6",
         "address": "911 N Jackson St, Chandler, AZ 85225",
         "latitude": 33.31956707904414,
         "longitude": -111.82802004531655
     },
     {
-        "stationId": 7,
+        "stationId": 107,
         "stationName": "Chandler Fire Station No.7",
         "address": "6200 S Gilbert Rd, Chandler, AZ 85249",
         "latitude": 33.21602910518005,
         "longitude": -111.79002681134637
     },
     {
-        "stationId": 8,
+        "stationId": 108,
         "stationName": "Chandler Fire Station No.8",
         "address": "711 W Frye Rd, Chandler, AZ 85225",
         "latitude": 33.29842302067967,
         "longitude": -111.85131526979484
     },
     {
-        "stationId": 9,
+        "stationId": 109,
         "stationName": "Chandler Fire Station No.9",
         "address": "211 N Desert Breeze Blvd, Chandler, AZ 85226",
         "latitude": 33.306354940376536,
         "longitude": -111.91940277142102
     },
     {
-        "stationId": 10,
+        "stationId": 110,
         "stationName": "Chandler Fire Station No.10",
         "address": "5211 S McQueen Rd, Chandler, AZ 85249",
         "latitude": 33.23035376774228,
         "longitude": -111.82331242572242
     },
     {
-        "stationId": 11,
+        "stationId": 111,
         "stationName": "Chandler Fire Station No.11",
         "address": "4200 S Gilbert Rd, Chandler, AZ 85249",
         "latitude": 33.24480946782845,
         "longitude": -111.79040141987805
     },
     {
-        "stationId": 12,
+        "stationId": 301,
         "stationName": "Gilbert Fire Station No.1",
         "address": "2730 E. Williams Field Road Gilbert, AZ 85295",
         "latitude": 33.3074116458481,
         "longitude": -111.731394835201
     },
     {
-        "stationId": 13,
+        "stationId": 302,
         "stationName": "Gilbert Fire Station No.2",
         "address": "2855 E Guadalupe Rd Gilbert, AZ 85234",
         "latitude": 33.3644212297267,
         "longitude": -111.727692518255
     },
     {
-        "stationId": 14,
+        "stationId": 303,
         "stationName": "Gilbert Fire Station No.3",
         "address": "1011 E. Guadalupe Rd Gilbert, AZ 85234",
         "latitude": 33.3642185849847,
         "longitude": -111.769306372508
     },
     {
-        "stationId": 15,
+        "stationId": 304,
         "stationName": "Gilbert Fire Station No.4",
         "address": "909 E. Ray Road Gilbert, AZ 85296",
         "latitude": 33.3207184956398,
         "longitude": -111.770860977537
     },
     {
-        "stationId": 16,
+        "stationId": 305,
         "stationName": "Gilbert Fire Station No.5",
         "address": "3630 E. Germann Road Gilbert, AZ 85297",
         "latitude": 33.2781672311346,
         "longitude": -111.709625594595
     },
     {
-        "stationId": 17,
+        "stationId": 306,
         "stationName": "Gilbert Fire Station No.6",
         "address": "3595 E. Warner Road Gilbert, AZ 85296",
         "latitude": 33.3353015282581,
         "longitude": -111.712133142109
     },
     {
-        "stationId": 18,
+        "stationId": 307,
         "stationName": "Gilbert Fire Station No.7",
         "address": "625 W. Warner Rd. Gilbert, AZ 85233",
         "latitude": 33.3349770547749,
         "longitude": -111.803182839538
     },
     {
-        "stationId": 19,
+        "stationId": 308,
         "stationName": "Gilbert Fire Station No.8",
         "address": "1095 East Germann Road Gilbert, AZ 85297",
         "latitude": 33.2772086961984,
         "longitude": -111.764767827368
     },
     {
-        "stationId": 20,
+        "stationId": 309,
         "stationName": "Gilbert Fire Station No.9",
         "address": "3355 E Ocotillo Rd Gilbert, AZ 85298",
         "latitude": 33.2480397477354,
         "longitude": -111.717155844125
     },
     {
-        "stationId": 21,
+        "stationId": 310,
         "stationName": "Gilbert Fire Station No.10",
         "address": "1330 West Guadalupe Road Gilbert, AZ 85233",
         "latitude": 33.3647745805191,
         "longitude": -111.818687402101
     },
     {
-        "stationId": 22,
+        "stationId": 311,
         "stationName": "Gilbert Fire Station No.11",
         "address": "2860 East Riggs Road Gilbert, AZ 85298",
         "latitude": 33.2197747223465,
@@ -329,6 +330,139 @@ const stations = [
 // Mesa Fire Station No.220 / 32 S 58th St, Mesa, AZ 85205 / 33.41492580358734, -111.70567354774543
 // Mesa Fire Station No.221 / 9320 E Point Twenty-Two Blvd, Mesa, AZ 85212 / 33.32680626321322, -111.63264990224569
 
+const fleets = [
+    {"fleetId": "E101", "fleetType": "Engine", "stationId": 101},
+    {"fleetId": "E102", "fleetType": "Engine", "stationId": 102},
+    {"fleetId": "E103", "fleetType": "Engine", "stationId": 103},
+    {"fleetId": "E104", "fleetType": "Engine", "stationId": 104},
+    {"fleetId": "E105", "fleetType": "Engine", "stationId": 105},
+    {"fleetId": "E106", "fleetType": "Engine", "stationId": 106},
+    {"fleetId": "E107", "fleetType": "Engine", "stationId": 107},
+    {"fleetId": "E108", "fleetType": "Engine", "stationId": 108},
+    {"fleetId": "E109", "fleetType": "Engine", "stationId": 109},
+    {"fleetId": "E110", "fleetType": "Engine", "stationId": 110},
+    {"fleetId": "E111", "fleetType": "Engine", "stationId": 111},
+    {"fleetId": "L101", "fleetType": "Ladder", "stationId": 101},
+    {"fleetId": "L102", "fleetType": "Ladder", "stationId": 102},
+    {"fleetId": "L103", "fleetType": "Ladder", "stationId": 103},
+    {"fleetId": "L104", "fleetType": "Ladder", "stationId": 104},
+    {"fleetId": "L105", "fleetType": "Ladder", "stationId": 105},
+    {"fleetId": "L106", "fleetType": "Ladder", "stationId": 106},
+    {"fleetId": "L107", "fleetType": "Ladder", "stationId": 107},
+    {"fleetId": "L108", "fleetType": "Ladder", "stationId": 108},
+    {"fleetId": "L109", "fleetType": "Ladder", "stationId": 109},
+    {"fleetId": "L110", "fleetType": "Ladder", "stationId": 110},
+    {"fleetId": "L111", "fleetType": "Ladder", "stationId": 111},
+    {"fleetId": "M101", "fleetType": "Ambulance", "stationId": 101},
+    {"fleetId": "M102", "fleetType": "Ambulance", "stationId": 102},
+    {"fleetId": "M103", "fleetType": "Ambulance", "stationId": 103},
+    {"fleetId": "M104", "fleetType": "Ambulance", "stationId": 104},
+    {"fleetId": "M105", "fleetType": "Ambulance", "stationId": 105},
+    {"fleetId": "M106", "fleetType": "Ambulance", "stationId": 106},
+    {"fleetId": "M107", "fleetType": "Ambulance", "stationId": 107},
+    {"fleetId": "M108", "fleetType": "Ambulance", "stationId": 108},
+    {"fleetId": "M109", "fleetType": "Ambulance", "stationId": 109},
+    {"fleetId": "M110", "fleetType": "Ambulance", "stationId": 110},
+    {"fleetId": "M111", "fleetType": "Ambulance", "stationId": 111},
+    {"fleetId": "E201", "fleetType": "Engine", "stationId": 201},
+    {"fleetId": "E202", "fleetType": "Engine", "stationId": 202},
+    {"fleetId": "E203", "fleetType": "Engine", "stationId": 203},
+    {"fleetId": "E204", "fleetType": "Engine", "stationId": 204},
+    {"fleetId": "E205", "fleetType": "Engine", "stationId": 205},
+    {"fleetId": "E206", "fleetType": "Engine", "stationId": 206},
+    {"fleetId": "E207", "fleetType": "Engine", "stationId": 207},
+    {"fleetId": "E208", "fleetType": "Engine", "stationId": 208},
+    {"fleetId": "E209", "fleetType": "Engine", "stationId": 209},
+    {"fleetId": "E210", "fleetType": "Engine", "stationId": 210},
+    {"fleetId": "E211", "fleetType": "Engine", "stationId": 211},
+    {"fleetId": "E212", "fleetType": "Engine", "stationId": 212},
+    {"fleetId": "E213", "fleetType": "Engine", "stationId": 213},
+    {"fleetId": "E214", "fleetType": "Engine", "stationId": 214},
+    {"fleetId": "E215", "fleetType": "Engine", "stationId": 215},
+    {"fleetId": "E216", "fleetType": "Engine", "stationId": 216},
+    {"fleetId": "E217", "fleetType": "Engine", "stationId": 217},
+    {"fleetId": "E218", "fleetType": "Engine", "stationId": 218},
+    {"fleetId": "E219", "fleetType": "Engine", "stationId": 219},
+    {"fleetId": "E220", "fleetType": "Engine", "stationId": 220},
+    {"fleetId": "E221", "fleetType": "Engine", "stationId": 221},
+    {"fleetId": "L201", "fleetType": "Ladder", "stationId": 201},
+    {"fleetId": "L202", "fleetType": "Ladder", "stationId": 202},
+    {"fleetId": "L203", "fleetType": "Ladder", "stationId": 203},
+    {"fleetId": "L204", "fleetType": "Ladder", "stationId": 204},
+    {"fleetId": "L205", "fleetType": "Ladder", "stationId": 205},
+    {"fleetId": "L206", "fleetType": "Ladder", "stationId": 206},
+    {"fleetId": "L207", "fleetType": "Ladder", "stationId": 207},
+    {"fleetId": "L208", "fleetType": "Ladder", "stationId": 208},
+    {"fleetId": "L209", "fleetType": "Ladder", "stationId": 209},
+    {"fleetId": "L210", "fleetType": "Ladder", "stationId": 210},
+    {"fleetId": "L211", "fleetType": "Ladder", "stationId": 211},
+    {"fleetId": "L212", "fleetType": "Ladder", "stationId": 212},
+    {"fleetId": "L213", "fleetType": "Ladder", "stationId": 213},
+    {"fleetId": "L214", "fleetType": "Ladder", "stationId": 214},
+    {"fleetId": "L215", "fleetType": "Ladder", "stationId": 215},
+    {"fleetId": "L216", "fleetType": "Ladder", "stationId": 216},
+    {"fleetId": "L217", "fleetType": "Ladder", "stationId": 217},
+    {"fleetId": "L218", "fleetType": "Ladder", "stationId": 218},
+    {"fleetId": "L219", "fleetType": "Ladder", "stationId": 219},
+    {"fleetId": "L220", "fleetType": "Ladder", "stationId": 220},
+    {"fleetId": "L221", "fleetType": "Ladder", "stationId": 221},
+    {"fleetId": "M201", "fleetType": "Ambulance", "stationId": 201},
+    {"fleetId": "M202", "fleetType": "Ambulance", "stationId": 202},
+    {"fleetId": "M203", "fleetType": "Ambulance", "stationId": 203},
+    {"fleetId": "M204", "fleetType": "Ambulance", "stationId": 204},
+    {"fleetId": "M205", "fleetType": "Ambulance", "stationId": 205},
+    {"fleetId": "M206", "fleetType": "Ambulance", "stationId": 206},
+    {"fleetId": "M207", "fleetType": "Ambulance", "stationId": 207},
+    {"fleetId": "M208", "fleetType": "Ambulance", "stationId": 208},
+    {"fleetId": "M209", "fleetType": "Ambulance", "stationId": 209},
+    {"fleetId": "M210", "fleetType": "Ambulance", "stationId": 210},
+    {"fleetId": "M211", "fleetType": "Ambulance", "stationId": 211},
+    {"fleetId": "M212", "fleetType": "Ambulance", "stationId": 212},
+    {"fleetId": "M213", "fleetType": "Ambulance", "stationId": 213},
+    {"fleetId": "M214", "fleetType": "Ambulance", "stationId": 214},
+    {"fleetId": "M215", "fleetType": "Ambulance", "stationId": 215},
+    {"fleetId": "M216", "fleetType": "Ambulance", "stationId": 216},
+    {"fleetId": "M217", "fleetType": "Ambulance", "stationId": 217},
+    {"fleetId": "M218", "fleetType": "Ambulance", "stationId": 218},
+    {"fleetId": "M219", "fleetType": "Ambulance", "stationId": 219},
+    {"fleetId": "M220", "fleetType": "Ambulance", "stationId": 220},
+    {"fleetId": "M221", "fleetType": "Ambulance", "stationId": 221},
+    {"fleetId": "E301", "fleetType": "Engine", "stationId": 301},
+    {"fleetId": "E302", "fleetType": "Engine", "stationId": 302},
+    {"fleetId": "E303", "fleetType": "Engine", "stationId": 303},
+    {"fleetId": "E304", "fleetType": "Engine", "stationId": 304},
+    {"fleetId": "E305", "fleetType": "Engine", "stationId": 305},
+    {"fleetId": "E306", "fleetType": "Engine", "stationId": 306},
+    {"fleetId": "E307", "fleetType": "Engine", "stationId": 307},
+    {"fleetId": "E308", "fleetType": "Engine", "stationId": 308},
+    {"fleetId": "E309", "fleetType": "Engine", "stationId": 309},
+    {"fleetId": "E310", "fleetType": "Engine", "stationId": 310},
+    {"fleetId": "E311", "fleetType": "Engine", "stationId": 311},
+    {"fleetId": "L301", "fleetType": "Ladder", "stationId": 301},
+    {"fleetId": "L302", "fleetType": "Ladder", "stationId": 302},
+    {"fleetId": "L303", "fleetType": "Ladder", "stationId": 303},
+    {"fleetId": "L304", "fleetType": "Ladder", "stationId": 304},
+    {"fleetId": "L305", "fleetType": "Ladder", "stationId": 305},
+    {"fleetId": "L306", "fleetType": "Ladder", "stationId": 306},
+    {"fleetId": "L307", "fleetType": "Ladder", "stationId": 307},
+    {"fleetId": "L308", "fleetType": "Ladder", "stationId": 308},
+    {"fleetId": "L309", "fleetType": "Ladder", "stationId": 309},
+    {"fleetId": "L310", "fleetType": "Ladder", "stationId": 310},
+    {"fleetId": "L311", "fleetType": "Ladder", "stationId": 311},
+    {"fleetId": "M301", "fleetType": "Ambulance", "stationId": 301},
+    {"fleetId": "M302", "fleetType": "Ambulance", "stationId": 302},
+    {"fleetId": "M303", "fleetType": "Ambulance", "stationId": 303},
+    {"fleetId": "M304", "fleetType": "Ambulance", "stationId": 304},
+    {"fleetId": "M305", "fleetType": "Ambulance", "stationId": 305},
+    {"fleetId": "M306", "fleetType": "Ambulance", "stationId": 306},
+    {"fleetId": "M307", "fleetType": "Ambulance", "stationId": 307},
+    {"fleetId": "M308", "fleetType": "Ambulance", "stationId": 308},
+    {"fleetId": "M309", "fleetType": "Ambulance", "stationId": 309},
+    {"fleetId": "M310", "fleetType": "Ambulance", "stationId": 310},
+    {"fleetId": "M311", "fleetType": "Ambulance", "stationId": 311}
+]
+
+
 // mongoose connection
 mongoose
     .connect(process.env.MONGODB_URI)
@@ -346,6 +480,18 @@ mongoose
     })
     .then(() => {
         console.log('Initial station data has been saved to the database')
+
+        // deleting existing data
+        return Fleet.deleteMany({});
+    })
+    .then(() => {
+        console.log('Existing fleet data in the database has been deleted ');
+
+        // saving station information
+        return Fleet.insertMany(fleets);
+    })
+    .then(() => {
+        console.log('Initial fleet data has been saved to the database')
     })
     .catch(err => {
         console.log('DB connection failed!');
