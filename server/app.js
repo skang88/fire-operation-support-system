@@ -27,5 +27,7 @@ app.use("/api/v1", stationRouter);
 const fleetRouter = require('./router/fleetRouter');
 app.use("/api/v1", fleetRouter);
 
+const dispatchRouter = require('./router/dispatchRouter');
+app.use("/api/v1", dispatchRouter)
 
 module.exports = app;

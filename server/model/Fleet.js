@@ -11,8 +11,9 @@ const fleetSchema = new mongoose.Schema({
         enum: ['Ladder', 'Engine', 'Ambulance'] 
     },
     stationId:{
-        type: String, 
-        required:true
+        type: Number, 
+        required:true,
+        ref: 'Station',  
     }
 });
 

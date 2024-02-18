@@ -33,6 +33,14 @@
         "description": "Find out more",
         "url": "http://swagger.io"
       }
+    }, 
+    {
+      "name": "Dispatches", 
+      "description": "Everything about Dispatches", 
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
     }
   ],
   "paths": {
@@ -475,6 +483,7 @@
             }
           }
         ], 
+        
         "responses": {
           "200": {
             "description": "successful operation",
@@ -499,8 +508,208 @@
           }
         }
       }
+    },
+
+    "/geocode": {
+      "post": {
+        "tags": ["Dispatches"], 
+        "summary": "Geocode coordinates by search text such as address", 
+        "description": "Geocode coordinates by search text such as address", 
+        "operationId": "geocode", 
+        "requestBody": {
+          "description": "Address to be geocoded",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Address"
+              }
+            }
+          }, 
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Geocode"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Geocode"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Station not found"
+          }
+        }
+      }
+    }, 
+    "/dispatches": {
+      "get": {
+        "tags": ["Dispatches"], 
+        "summary": "Get all dispatches", 
+        "description": "Get all dispatches", 
+        "operationId": "getAllDispatches", 
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }, 
+      "post": {
+        "tags": ["Dispatches"], 
+        "summary": "Add a new dispatch", 
+        "description": "Add a new dispatch", 
+        "operationId": "addNewDispatch", 
+        "requestBody": {
+          "description": "Create a new dispatch in the DB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Dispatches"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Dispatches"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Dispatches"
+              }
+            }
+          }, 
+          "required": true
+        }, 
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation exception"
+          }
+        }
+      }
+    }, 
+    "/dispatches/{dispatchId}": {
+      "put": {
+        "tags": ["Dispatches"], 
+        "summary": "Update a new dispatch by ID", 
+        "description": "Update a new dispatch by ID", 
+        "operationId": "updateDispatchByID", 
+        "parameters": [
+          {
+            "name": "dispatchId",
+            "in": "path",
+            "description": "ID of dispatch to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Update a dispatch in the DB",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Dispatches"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/Dispatches"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/Dispatches"
+              }
+            }
+          }, 
+          "required": true
+        }, 
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "422": {
+            "description": "Validation exception"
+          }
+        }
+      }
     }
   },
+
+
   "components": {
     "schemas": {
       "Stations": {
@@ -546,6 +755,61 @@
             "type": "integer", 
             "format": "int64", 
             "example": 101
+          }
+        }
+      }, 
+      "Geocode": {
+        "type": "object", 
+        "properties": {
+          "id": {
+            "type": "string", 
+            "example": "address.00852862302996"
+          }, 
+          "place_name": {
+            "type": "string", 
+            "example": "1234 S Gilbert Rd"
+          }, 
+          "center": {
+            "type": "number", 
+            "example": [-111.78962, 33.26051]
+          }
+        }
+      }, 
+      "Address": {
+        "type": "object", 
+        "properties": {
+          "address": {
+            "type": "string", 
+            "example": "1723 University Dr, tempe, AZ"
+          }
+        }
+      }, 
+      "Dispatches": {
+        "type": "object", 
+        "properties": {
+          "callId": {
+            "type": "string", 
+            "example": "call01"
+          }, 
+          "dispatchType": {
+            "type": "string", 
+            "example": "Fire"
+          }, 
+          "dispatchAddress": {
+            "type": "string", 
+            "example": "3330 S Gilbert Rd"
+          }, 
+          "dispatchFleets": {
+            "type": "object", 
+            "example":  [
+              {"fleets": "65c99bbdd4890d0fd8d1c66b"}, 
+              {"fleets": "65c99bbdd4890d0fd8d1c671"}, 
+              {"fleets": "65c99bbdd4890d0fd8d1c674"}   
+            ]
+          }, 
+          "dispatchStatus": {
+            "type": "string", 
+            "example": "in progress"
           }
         }
       }
