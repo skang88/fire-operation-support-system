@@ -1,6 +1,8 @@
 // Required for reading .env file
 require('dotenv').config()
 
+// Hi this is from leadgoon, I'll update this part
+
 // required for database to perform CRUD operations
 const mongoose = require('mongoose');
 
