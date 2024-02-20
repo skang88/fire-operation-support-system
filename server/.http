@@ -9,7 +9,7 @@ content-type: application/json
 GET http://localhost:4000/api/v1/fleets
 
 
-###
+### GET dispatches
 GET http://localhost:4000/api/v1/dispatches
 
 
@@ -60,4 +60,28 @@ Content-Type: application/json
 }
 
 ### Delete dispatch
-DELETE  http://localhost:4000/api/v1/dispatches/65cfb183d9e89dbae4c86cb4
+DELETE  http://localhost:4000/api/v1/dispatches/65cfb1e9d9e89dbae4c86cb8
+
+
+### POST - add vehicles to existing dispatch
+POST http://localhost:4000/api/v1/dispatches/vehicles/65cfb027d9e89dbae4c86cb0
+Content-Type: application/json
+
+{   
+    "fleets": "65c99bbdd4890d0fd8d1c677"
+}
+
+### GET dispatches
+GET http://localhost:4000/api/v1/dispatches
+
+
+
+### DELETE - delete vehicles to existing dispatch
+DELETE http://localhost:4000/api/v1/dispatches/vehicles/65cfb027d9e89dbae4c86cb0
+Content-Type: application/json
+
+{   
+    "fleets": [
+        "65d40406385bff26b08236f5"
+    ]
+}

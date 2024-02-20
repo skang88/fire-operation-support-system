@@ -10,6 +10,8 @@ router
     .get('/dispatches/:id', dispatchController.getDispatchById)
     .put('/dispatches/:id', dispatchController.updateDispatchById)
     .delete('/dispatches/:id', dispatchController.deleteDispatchById)
+    .post('/dispatches/vehicles/:id', dispatchController.addVehiclesToDispatchById)
+    .delete('/dispatches/vehicles/:id', dispatchController.deleteVehiclesToDispatchById)
     
 
 module.exports = router;

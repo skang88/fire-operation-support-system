@@ -8,7 +8,8 @@ exports.getDispatches = async (req, res) => {
     try {
         const dispatches = await Dispatch.find();
         if (dispatches && dispatches.length > 0) {
-            res.status(200).json(dispatches);
+            const count = dispatches.length;
+            res.status(200).json({ message: "data was successfully fetched.", count, dispatches });
         } else {
             res.send('No dispatches are founded');
         }
@@ -112,6 +113,26 @@ exports.addVehiclesToDispatchById = async (req, res) => {
     }
 }
 
+// delete vehicles from dispatch
+exports.deleteVehiclesToDispatchById = async (req, res) => {
+    try {
+        const dispatch = await Dispatch.updateOne(
+            { _id: req.params.id },
+            { $pull: { dispatchFleets: { fleets: req.body.fleets } } },
+            { new: true }
+        );
+        if (!dispatch) {
+            return res.status(400).json({ message: "Dispatch not found" });
+        } else {
+            const updatedDispatch = await Dispatch.findOne({ _id: req.params.id });
+            res.status(200).json({ message: "The dispatch information was successfully deleted.", updatedDispatch });
+        }
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 // DELETE a dispatch by ID
 exports.deleteDispatchById = async (req, res) => {
     try {
@@ -119,7 +140,7 @@ exports.deleteDispatchById = async (req, res) => {
         if (!dispatch) {
             return res.status(400).json({ message: 'Dispatch not found' });
         } else {
-            res.status(200).json({ dispatch, message: "This dispatch was successfully deleted." }); // Redirect to all books list
+            res.status(200).json({ message: "This dispatch was successfully deleted.", dispatch }); // Redirect to all books list
         }
     } catch (err) {
         res.status(500).json({ message: err.message });
