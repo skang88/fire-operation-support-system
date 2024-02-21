@@ -705,6 +705,162 @@
             "description": "Validation exception"
           }
         }
+      }, 
+      "get": {
+        "tags": ["Dispatches"], 
+        "summary": "Get a new dispatch by ID", 
+        "description": "Get a new dispatch by ID", 
+        "operationId": "getDispatchById", 
+        "parameters": [
+          {
+            "name": "dispatchId",
+            "in": "path",
+            "description": "ID of dispatch to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }, 
+    "/dispatches/vehicles/{dispatchId}": {
+      "post": {
+        "tags": ["Dispatches"], 
+        "summary": "Add vehicles to existing dispatch by ID", 
+        "description": "Add vehicles to existing dispatch by ID", 
+        "operationId": "addVehiclesToDispatchById", 
+        "parameters": [
+          {
+            "name": "dispatchId",
+            "in": "path",
+            "description": "ID of dispatch to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ], 
+        "requestBody": {
+          "description": "Add vehicles to existing dispatch",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchFleets"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchFleets"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchFleets"
+              }
+            }
+          }, 
+          "required": true
+        }, 
+        "responses": {
+          "200": {
+            "description": "Successful operation", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              }
+            }
+          }
+        }
+        
+      }, 
+      "delete": {
+        "tags": ["Dispatches"], 
+        "summary": "Delete vehicles to existing dispatch by ID", 
+        "description": "Delete vehicles to existing dispatch by ID", 
+        "operationId": "deleteVehiclesToDispatchById", 
+        "parameters": [
+          {
+            "name": "dispatchId",
+            "in": "path",
+            "description": "ID of dispatch to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        ], 
+        "requestBody": {
+          "description": "Add vehicles to existing dispatch",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchFleets"
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchFleets"
+              }
+            },
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "$ref": "#/components/schemas/DispatchFleets"
+              }
+            }
+          }, 
+          "required": true
+        }, 
+        "responses": {
+          "200": {
+            "description": "Successful operation", 
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dispatches"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -799,12 +955,20 @@
             "type": "string", 
             "example": "3330 S Gilbert Rd"
           }, 
+          "dispatchLatitude": {
+            "type": "number", 
+            "example": 36.5309959
+          },
+          "dispatchLongitude": {
+            "type": "number", 
+            "example": 128.8847142
+          },
           "dispatchFleets": {
             "type": "object", 
             "example":  [
-              {"fleets": "65c99bbdd4890d0fd8d1c66b"}, 
-              {"fleets": "65c99bbdd4890d0fd8d1c671"}, 
-              {"fleets": "65c99bbdd4890d0fd8d1c674"}   
+              "65c99bbdd4890d0fd8d1c683", 
+              "65c99bbdd4890d0fd8d1c66b", 
+              "65c99bbdd4890d0fd8d1c674"
             ]
           }, 
           "dispatchStatus": {
@@ -812,6 +976,16 @@
             "example": "in progress"
           }
         }
+      }, 
+      "DispatchFleets": {
+        "type": "object", 
+            "example": {   
+              "dispatchFleets": [
+                "65c99bbdd4890d0fd8d1c683", 
+                "65c99bbdd4890d0fd8d1c66b", 
+                "65c99bbdd4890d0fd8d1c674"
+              ]
+            }
       }
     },
     "securitySchemes": {

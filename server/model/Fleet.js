@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const fleetSchema = new mongoose.Schema({
     fleetId: {
         type: String, 
+        unique: true, 
         required: true
     }, 
     fleetType: {

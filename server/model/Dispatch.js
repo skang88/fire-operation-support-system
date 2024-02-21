@@ -29,15 +29,9 @@
         },
         dispatchFleets: [
             {
-                fleets: {
-                    type: mongoose.Schema.Types.ObjectId, 
-                    required: true, 
-                    ref: 'Fleet'
-                }, 
-                updateTime: {
-                    type: Date,
-                    default: Date.now
-                }   
+                type: mongoose.Schema.Types.ObjectId, 
+                unique: true, 
+                ref: 'Fleet'
             }
         ],
         dispatchStatus: {

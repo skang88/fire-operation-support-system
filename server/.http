@@ -22,9 +22,9 @@ Content-Type: application/json
     "dispatchType": "Fire", 
     "dispatchAddress": "3330 S Gilbert Rd Unit 2020", 
     "dispatchFleets": [
-       {"fleets": "65c99bbdd4890d0fd8d1c66b"}, 
-       {"fleets": "65c99bbdd4890d0fd8d1c671"}, 
-       {"fleets": "65c99bbdd4890d0fd8d1c674"}  
+       "65c99bbdd4890d0fd8d1c66b", 
+       "65c99bbdd4890d0fd8d1c671", 
+       "65c99bbdd4890d0fd8d1c674"  
     ], 
     "dispatchStatus": "in progress"
 }
@@ -38,15 +38,15 @@ Content-Type: application/json
     "dispatchType": "Rescue", 
     "dispatchAddress": "3123 S Gilbert Rd Unit 2020", 
     "dispatchFleets": [
-       {"fleets": "65c99bbdd4890d0fd8d1c673"},
-       {"fleets": "65c99bbdd4890d0fd8d1c677"},
-       {"fleets": "65c99bbdd4890d0fd8d1c67a"}
+       "65c99bbdd4890d0fd8d1c673",
+       "65c99bbdd4890d0fd8d1c677",
+       "65c99bbdd4890d0fd8d1c67a"
     ], 
     "dispatchStatus": "in progress"
 }
 
-### POST additional resources
-PUT http://localhost:4000/api/v1/dispatches/65cfb384c5fdb57b4e9deb06
+### POST additional resources and update information
+PUT http://localhost:4000/api/v1/dispatches/65d59f0d63a89415f8ad77b4
 Content-Type: application/json
 
 {
@@ -54,34 +54,36 @@ Content-Type: application/json
     "dispatchType": "Rescue", 
     "dispatchAddress": "3123 S Gilbert Rd Unit 2020", 
     "dispatchFleets": [
-       {"fleets": "65c99bbdd4890d0fd8d1c683"}
+       "65c99bbdd4890d0fd8d1c683"
     ], 
     "dispatchStatus": "end"
 }
 
 ### Delete dispatch
-DELETE  http://localhost:4000/api/v1/dispatches/65cfb1e9d9e89dbae4c86cb8
+DELETE  http://localhost:4000/api/v1/dispatches/65d594eaa62497c42c77c4c9
 
 
 ### POST - add vehicles to existing dispatch
-POST http://localhost:4000/api/v1/dispatches/vehicles/65cfb027d9e89dbae4c86cb0
+POST http://localhost:4000/api/v1/dispatches/vehicles/65d59f2c63a89415f8ad77b6
 Content-Type: application/json
 
-{   
-    "fleets": "65c99bbdd4890d0fd8d1c677"
+{
+    "dispatchFleets": [
+        "65c99bbdd4890d0fd8d1c683", 
+        "65c99bbdd4890d0fd8d1c66b", 
+        "65c99bbdd4890d0fd8d1c674"
+    ]
 }
-
-### GET dispatches
-GET http://localhost:4000/api/v1/dispatches
-
 
 
 ### DELETE - delete vehicles to existing dispatch
-DELETE http://localhost:4000/api/v1/dispatches/vehicles/65cfb027d9e89dbae4c86cb0
+DELETE http://localhost:4000/api/v1/dispatches/vehicles/65d59f2c63a89415f8ad77b6
 Content-Type: application/json
 
 {   
-    "fleets": [
-        "65d40406385bff26b08236f5"
+    "dispatchFleets": [
+        "65c99bbdd4890d0fd8d1c683", 
+        "65c99bbdd4890d0fd8d1c66b", 
+        "65c99bbdd4890d0fd8d1c674"
     ]
 }

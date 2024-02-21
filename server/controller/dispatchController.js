@@ -98,7 +98,7 @@ exports.addVehiclesToDispatchById = async (req, res) => {
     try {
         const dispatch = await Dispatch.updateOne(
             { _id: req.params.id}, 
-            { $push: { dispatchFleets: { fleets: req.body.fleets } } }, 
+            { $push: { dispatchFleets: { $each: req.body.dispatchFleets } } }, 
             { new: true }
         );
         if (!dispatch) {
@@ -118,13 +118,13 @@ exports.deleteVehiclesToDispatchById = async (req, res) => {
     try {
         const dispatch = await Dispatch.updateOne(
             { _id: req.params.id },
-            { $pull: { dispatchFleets: { fleets: req.body.fleets } } },
+            { $pullAll: { dispatchFleets: req.body.dispatchFleets  } },
             { new: true }
         );
         if (!dispatch) {
             return res.status(400).json({ message: "Dispatch not found" });
         } else {
-            const updatedDispatch = await Dispatch.findOne({ _id: req.params.id });
+            const updatedDispatch = await Dispatch.findById(req.params.id);
             res.status(200).json({ message: "The dispatch information was successfully deleted.", updatedDispatch });
         }
 
