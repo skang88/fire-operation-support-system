@@ -37,11 +37,11 @@ const Mapbox4 = () => {
     <Map
       id='map'
       initialViewState={{
-        longitude: 139.636814,
-        latitude: 35.443098,
+        longitude: -111.79134419888223,
+        latitude: 33.257175468103014,
         zoom: 15
       }}
-      style={{ width: '100%', height: '100vh' }}
+      style={{ width: '100%', height: '60vh' }}
       mapStyle={'mapbox://styles/mapbox/streets-v12'}
       mapboxAccessToken={api_key}
       onLoad={onLoad}

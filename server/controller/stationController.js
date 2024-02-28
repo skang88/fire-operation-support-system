@@ -5,10 +5,11 @@ exports.getStations = async (req, res) => {
     try {
         const stations = await Station.find();
         if (stations && stations.length > 0) {
-            res.status(200).json(stations);
+            const count = stations.length;
+            res.status(200).json({ message: "data was successfully fetched.", stations, count });
         } else {
             res.send('No stations are added');
-        }
+        }   
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
