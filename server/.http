@@ -87,3 +87,16 @@ Content-Type: application/json
         "65c99bbdd4890d0fd8d1c674"
     ]
 }
+
+
+### Add Location
+POST http://localhost:4000/api/v1/location/65c99bbdd4890d0fd8d1c683
+Content-Type: application/json
+
+{
+    "latitude": 33.22, 
+    "longitude": -111.75
+}
+
+### Get Location By ID
+GET http://localhost:4000/api/v1/location/65c99bbdd4890d0fd8d1c683

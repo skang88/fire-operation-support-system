@@ -2,10 +2,9 @@ const mongoose = require('mongoose');
 
 const fleetSchema = new mongoose.Schema({
     fleetId: {
-        type: String, 
-        unique: true, 
+        type: String,
         required: true
-    }, 
+    },
     fleetType: {
         type: String, 
         required: true, 

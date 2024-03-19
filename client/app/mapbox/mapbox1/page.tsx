@@ -24,7 +24,7 @@ export default function Mapbox1() {
         zoom: 12
     });
 
-    const [message, setMessage] = useState("Loading");
+    const [message, setMessage] = useState("Data Loading...");
     const [stations, setStations] = useState<Station[]>([]);
     const [selectedStation, setSelectedStation] = useState<Station | null>(null);
 
@@ -36,7 +36,7 @@ export default function Mapbox1() {
             .then(
                 (data) => {
                     console.log(data);
-                    setMessage(data.message);
+                    setMessage(`${data.stations.length} stations ${data.message}`);
                     setStations(data.stations || []);
                 })
     }, []);
@@ -49,7 +49,7 @@ export default function Mapbox1() {
 
     return (
         <div>
-            <div> {stations.length} stations {message} </div>
+            <div> {message} </div>
 
             <Map
                 {...viewState}

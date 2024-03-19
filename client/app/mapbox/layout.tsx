@@ -13,13 +13,13 @@ export default function Layout({ children }
   }>) {
   return (
     <>
-      <h1> Map Box </h1>
+      <h1> Map Box Sub routers </h1>
       <ul>
         <li>
           <Link href="/mapbox/mapbox1"> Map box 1 - stations on the map </Link>
         </li>
         <li>
-          <Link href="/mapbox/mapbox2"> Map box 2 </Link>
+          <Link href="/mapbox/mapbox2"> Map box 2 - onGeolocate </Link>
         </li>
         <li>
           <Link href="/mapbox/mapbox3"> Map box 3 </Link>

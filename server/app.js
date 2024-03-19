@@ -30,4 +30,7 @@ app.use("/api/v1", fleetRouter);
 const dispatchRouter = require('./router/dispatchRouter');
 app.use("/api/v1", dispatchRouter)
 
+const locationRouter = require('./router/locationRouter');
+app.use("/api/v1", locationRouter)
+
 module.exports = app;
