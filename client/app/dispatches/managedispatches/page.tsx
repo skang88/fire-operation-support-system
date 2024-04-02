@@ -31,24 +31,38 @@ export default function ListDispatches() {
         console.log("Edit button clicked for dispatch ID:", dispatchId);
     };
 
+    const handleStatusChangeClick = (dispatchId: number) => {
+        console.log("Edit button clicked for dispatch ID:", dispatchId);
+        // Here you can implement your logic to change dispatch status
+        // For simplicity, let's assume dispatchStatus is changed to "In Progress" if it was "Disabled" and vice versa
+        const updatedDispatches = dispatches.map(dispatch => {
+            if (dispatch.callId === dispatchId) {
+                return { ...dispatch, dispatchStatus: dispatch.dispatchStatus === "Disabled" ? "In Progress" : "Disabled" };
+            }
+            return dispatch;
+        });
+        setDispatches(updatedDispatches);
+    };
+
+
     const handleDeleteClick = (_id: string) => {
         const confirmDelete = window.confirm("Are you sure you want to delete this dispatch?");
         if (confirmDelete) {
             fetch(`${process.env.serverUrl}/api/v1/dispatches/${_id}`, {
                 method: 'DELETE'
             })
-            .then(response => {
-                if (response.ok) {
-                    window.location.reload();
-                } else {
-                    console.error('Failed to delete dispatch');
-                }
-            })
-            .catch(error => {
-                console.error('Error deleting dispatch:', error);
-            });
+                .then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        console.error('Failed to delete dispatch');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error deleting dispatch:', error);
+                });
         }
-    };   
+    };
 
     return (
         <div>
@@ -67,8 +81,8 @@ export default function ListDispatches() {
                             ))}
                         </ul>
                         <button className="ml-1 mt-1 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => handleEditClick(dispatch.callId)}>
-                            Disable
+                            onClick={() => handleStatusChangeClick(dispatch.callId)}>
+                            {dispatch.dispatchStatus}
                         </button>
                         <button className="ml-1 mt-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                             onClick={() => handleDeleteClick(dispatch._id)}>

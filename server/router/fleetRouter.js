@@ -5,6 +5,8 @@ const authentication = require('../controller/authentication')
 
 router 
     .get('/fleets', fleetController.getFleets)
+    .get('/fleets/active', fleetController.getActiveFleets)
+    .get('/fleets/available', fleetController.getAvailableFleets)
     .post('/fleets', fleetController.addFleet)
     .get('/fleets/:id', fleetController.getFleetById)
     .put('/fleets/:id', fleetController.updateFleetById)

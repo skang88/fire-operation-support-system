@@ -68,12 +68,12 @@ export default function CreateDispatches() {
 
     const handleVehicleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedFleetIds = Array.from(event.target.selectedOptions, option => option.value); // Get all selected vehicle Id 
-        const selectedVehicles = vehicles.filter(vehicle => selectedFleetIds.includes(vehicle._id)); 
-        setSelectedVehicles(selectedVehicles); 
+        const selectedVehicles = vehicles.filter(vehicle => selectedFleetIds.includes(vehicle._id));
+        setSelectedVehicles(selectedVehicles);
     };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault(); 
+        event.preventDefault();
 
         try {
             const formData = {
@@ -99,6 +99,31 @@ export default function CreateDispatches() {
             if (response.ok) {
                 console.log('Dispatch created successfully');
                 alert('Dispatch created successfully');
+
+                // Extract fleetIds from selectedVehicles
+                const fleetIdsToUpdate = selectedVehicles.map(vehicle => vehicle._id);
+
+                console.log("fleetIdsToupdate is ", fleetIdsToUpdate)
+
+                // Update fleet status for each fleetId
+                const fleetUpdatePromises = fleetIdsToUpdate.map(async (fleetId) => {
+                    const fleetResponse = await fetch(`http://localhost:4000/api/v1/fleets/${fleetId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ fleetStatus: 'active' }) // Modify status as needed
+                    });
+
+                    if (fleetResponse.ok) {
+                        console.log(`Fleet ${fleetId} status updated successfully`);
+                    } else {
+                        console.error(`Failed to update fleet ${fleetId} status`);
+                    }
+                });
+                // Wait for all fleet update requests to complete
+                await Promise.all(fleetUpdatePromises);
+
             } else {
                 console.error('Failed to create dispatch');
             }
@@ -184,7 +209,7 @@ export default function CreateDispatches() {
                 <div>
                     <label htmlFor="dispatchType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Select a Vehicle</label>
                     <select
-                        multiple 
+                        multiple
                         className="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         onChange={handleVehicleSelect}
                     >

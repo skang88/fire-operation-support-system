@@ -16,12 +16,23 @@ interface Dispatch {
   __v: number;
 }
 
+interface Fleets {
+  _id: string;
+  fleetId: string;
+  fleetType: string;
+  stationId: string;
+  fleetStatus: string;
+}
+
 
 export default function Home() {
 
   const [message, setMessage] = useState<string>("Loading");
   const [dispatches, setDispatches] = useState<Dispatch[]>([]);
+  const [fleets, setFleets] = useState<Fleets[]>([]);
+  const [availableFleets, setAvailableFleets] = useState<Fleets[]>([]);
   const [selectedDispatch, setSelectedDispatch] = useState<Dispatch | null>(null);
+
 
   useEffect(() => {
     fetch(`${process.env.serverUrl}/api/v1/dispatches`)
@@ -34,11 +45,33 @@ export default function Home() {
         })
   }, []);
 
+  useEffect(() => {
+    fetch(`${process.env.serverUrl}/api/v1/fleets/active`)
+      .then(response => response.json())
+      .then(
+        (data: { message: string, count: number, activeFleets: Fleets[] }) => {
+          console.log(data);
+          setMessage(data.message);
+          setFleets(data.activeFleets);
+        })
+  }, []);
+
+  // Get available fleets
+  useEffect(() => {
+    fetch(`${process.env.serverUrl}/api/v1/fleets/available`)
+      .then(response => response.json())
+      .then((data: { message: string, count: number, availableFleets: Fleets[] }) => {
+        console.log(data);
+        setMessage(data.message);
+        setAvailableFleets(data.availableFleets);
+      })
+  }, []);
+
   return (
     <div>
 
       <div className="mt-1 ml-10">
-        {dispatches.length} dispatches are in active.  <span className='mr-5'></span>
+        {dispatches.length === 0 ? 'Loading dispatches...' : `${dispatches.length} dispatches are in active.`} <span className='mr-5'></span>
         <select
           value={selectedDispatch ? selectedDispatch._id : ""}
           onChange={(e) => {
@@ -55,7 +88,14 @@ export default function Home() {
             <option key={index} value={dispatch._id}>{dispatch._id}</option>
           ))}
         </select>
+        <button
+          onClick={() => setSelectedDispatch(null)}
+          className="ml-3 bg-gray-200 hover:bg-gray-300 border border-gray-300 rounded-md px-3 py-1.5"
+        >
+          Clear Selection
+        </button>
       </div>
+
       {selectedDispatch && (
         <div className="mt-5">
           <div className="ml-5 mr-5 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
@@ -70,6 +110,11 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      <div className="mt-1 ml-10">
+        {fleets && fleets.length > 0 ? fleets.length + ' fleets are in active. And ' : 'Loading fleets...'}
+        {availableFleets && availableFleets.length > 0 ? availableFleets.length + ' fleets are available.' : 'Loading fleets...'}
+      </div>
 
       <div className="mt-5 ml-5 mr-5 ">
         <Mapbox4 latitude={selectedDispatch?.dispatchLatitude || 0} longitude={selectedDispatch?.dispatchLongitude || 0} />
