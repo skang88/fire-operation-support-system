@@ -1,6 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react';
-import Mapbox4 from './components/MapboxComponent';
+import Mapbox4 from './components/MapboxMarker';
+
 
 interface Dispatch {
   _id: string;
@@ -14,6 +15,7 @@ interface Dispatch {
   dispatchTime: string;
   __v: number;
 }
+
 
 export default function Home() {
 
@@ -32,15 +34,11 @@ export default function Home() {
         })
   }, []);
 
-  const handleSelectDispatch = (dispatch: Dispatch) => {
-    setSelectedDispatch(dispatch);
-  };
-
   return (
     <div>
-      
+
       <div className="mt-1 ml-10">
-      {dispatches.length} dispatches are in active.  <span className='mr-5'></span>
+        {dispatches.length} dispatches are in active.  <span className='mr-5'></span>
         <select
           value={selectedDispatch ? selectedDispatch._id : ""}
           onChange={(e) => {
@@ -60,19 +58,21 @@ export default function Home() {
       </div>
       {selectedDispatch && (
         <div className="mt-5">
-          <div className="p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <div className="ml-5 mr-5 p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <p className="font-normal text-gray-700 dark:text-gray-200">Dispatch ID: {selectedDispatch._id}</p>
             <p className="font-normal text-gray-700 dark:text-gray-300">Dispatch Type: {selectedDispatch.dispatchType}</p>
             <p className="font-normal text-gray-700 dark:text-gray-300">Dispatch Address: {selectedDispatch.dispatchAddress}</p>
             <p className="font-normal text-gray-700 dark:text-gray-300">Dispatch Status: {selectedDispatch.dispatchStatus}</p>
             <p className="font-normal text-gray-700 dark:text-gray-300">Dispatch Time: {selectedDispatch.dispatchTime}</p>
+            <p className="font-normal text-gray-700 dark:text-gray-300">Dispatch Latitude: {selectedDispatch.dispatchLatitude}</p>
+            <p className="font-normal text-gray-700 dark:text-gray-300">Dispatch Longitude: {selectedDispatch.dispatchLongitude}</p>
             {/* Add more dispatch data as needed */}
           </div>
         </div>
       )}
 
-<div className="mt-5 ml-5 mr-5">
-        <Mapbox4 />
+      <div className="mt-5 ml-5 mr-5 ">
+        <Mapbox4 latitude={selectedDispatch?.dispatchLatitude || 0} longitude={selectedDispatch?.dispatchLongitude || 0} />
       </div>
     </div>
 

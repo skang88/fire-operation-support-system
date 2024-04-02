@@ -60,8 +60,8 @@ exports.addDispatch = async (req, res) => {
         callId: req.body.callId,
         dispatchType: req.body.dispatchType,
         dispatchAddress: req.body.dispatchAddress, 
-        dispatchLatitude: req.body.dispatchLatitude | undefined, 
-        dispatchLongitude: req.body.dispatchLongitude | undefined, 
+        dispatchLatitude: req.body.dispatchLatitude, 
+        dispatchLongitude: req.body.dispatchLongitude, 
         dispatchFleets: req.body.dispatchFleets,
         dispatchStatus: req.body.dispatchStatus, 
         dispatchEndTime: undefined

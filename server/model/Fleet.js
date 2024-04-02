@@ -14,6 +14,10 @@ const fleetSchema = new mongoose.Schema({
         type: Number, 
         required:true,
         ref: 'Station',  
+    }, 
+    fleetStatus:{
+        type: String, 
+        enum: ['Active', 'Inactive']
     }
 });
 

@@ -74,3 +74,19 @@ exports.deleteFleetById = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+// Get all active fleets
+exports.getActiveFleets = async (req, res) => {
+    try {
+        const activeFleets = await Fleet.find({ fleetStatus: 'Active' });
+        const count = activeFleets.length;
+        if (activeFleets && activeFleets.length > 0) {
+            res.status(200).json({ message: "data was succefully fetched.", count, activeFleets });
+        } else {
+            res.send('No active fleets are found');
+        }
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+

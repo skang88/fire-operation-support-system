@@ -48,7 +48,7 @@ export default function Mapbox1() {
     };
 
     return (
-        <div>
+        <div className="mt-5 ml-5 mr-5">
             <div> {message} </div>
 
             <Map
