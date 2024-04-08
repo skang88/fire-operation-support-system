@@ -112,7 +112,7 @@ export default function Home() {
       )}
 
       <div className="mt-1 ml-10">
-        {fleets && fleets.length > 0 ? fleets.length + ' fleets are in active. And ' : 'Loading fleets...'}
+        {fleets && fleets.length > 0 ? fleets.length + ' fleets are in active.   ' : 'Loading fleets...'} 
         {availableFleets && availableFleets.length > 0 ? availableFleets.length + ' fleets are available.' : 'Loading fleets...'}
       </div>
 

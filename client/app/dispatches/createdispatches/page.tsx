@@ -28,10 +28,10 @@ export default function CreateDispatches() {
     const [selectedVehicles, setSelectedVehicles] = useState<Vehicles[]>([]);
 
     useEffect(() => {
-        fetch('http://localhost:4000/api/v1/fleets')
+        fetch('http://localhost:4000/api/v1/fleets/available')
             .then(response => response.json())
             .then(data => {
-                setVehicles(data);
+                setVehicles(data.availableFleets);
             })
             .catch(error => {
                 console.error('Error fetching vehicles:', error);
@@ -72,12 +72,17 @@ export default function CreateDispatches() {
         setSelectedVehicles(selectedVehicles);
     };
 
+    const generateCallId = () => {
+        // Generate a random callId, e.g., using timestamp or UUID
+        return Date.now().toString();
+    };
+
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         try {
             const formData = {
-                callId: event.currentTarget.callId.value,
+                callId: generateCallId(),
                 dispatchType: event.currentTarget.dispatchType.value,
                 dispatchAddress: event.currentTarget.dispatchAddress.value,
                 dispatchLatitude: latitude,
@@ -168,7 +173,7 @@ export default function CreateDispatches() {
 
                     <div className="mt-2">
                         <label htmlFor="callId" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Call ID</label>
-                        <input type="text" id="callId" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Call ID" required />
+                        <input type="text" id="callId" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Call ID" value={generateCallId()} readOnly required />
                     </div>
                     <div className="mt-2">
                         <label htmlFor="dispatchType" className="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Dispatch Type</label>

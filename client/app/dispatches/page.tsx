@@ -25,6 +25,7 @@ export default function Home() {
   const [message, setMessage] = useState<string>("Loading");
   const [dispatches, setDispatches] = useState<Dispatch[]>([]);
   const [selectedDispatch, setSelectedDispatch] = useState<Dispatch | null>(null);
+  
   const [viewState, setViewState] = useState({
     longitude: -111.79,
     latitude: 33.25,
